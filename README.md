@@ -154,8 +154,8 @@ Note we have been able to detect other cells the AT command *AT+COPS* did not re
 
 A complet list of MCC and MNC codes could be retrieved anywhere on internet and in Wikipedia: https://en.wikipedia.org/wiki/Mobile_country_code
 
-Focusing some operators
-------------------------
+Focusing on some operators
+---------------------------
 
 It is possible to tell *Modmobmap* to only focuse on specific operators with the *-m* argument:
 
