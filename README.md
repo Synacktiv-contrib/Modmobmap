@@ -10,7 +10,7 @@ For the moment, the tool has only been tested and developped for the following d
 - Samsung Galaxy S5;
 - Samsung Galaxy Note 2 with LTE;
 
-Moreover, as it's compatible for XGold via Modmobmap's forked of *xgoldmon*, this tools should also be able to work with device supported by *xgoldmon* as well:
+Moreover, as it's compatible for XGold via Modmobmap's forked of *xgoldmon*, this tools should also be able to work with devices supported by *xgoldmon* as well:
 - Samsung Galaxy S4 GT-I9500 (this is the version without LTE!)
 - Samsung Galaxy Nexus GT-I9250 (has to be rooted!)
 - Samsung Galaxy S2 GT-I9100
