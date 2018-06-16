@@ -2,7 +2,7 @@ Modmobmap
 ==========
 
 Modmobmap is a tool aimed to retrieve information of cellular networks.
-As shown in the first [presentation made at BeeRump 2018](https://www.rump.beer/2018/slides/modmobmap.pdf). This tool is able to retrieve information of 2G, 3G, 4G and more cellular network types with minimum requierement: only a phone with ServiceMode.
+As shown in the first [presentation made at BeeRump 2018](https://www.rump.beer/2018/slides/modmobmap.pdf), this tool is able to retrieve information of 2G, 3G, 4G and more cellular network types with minimum requierement: only a phone with ServiceMode.
 
 For the moment, the tool has only been tested and developped for the following devices:
 - Samsung Galaxy S3 via [xgoldmon (Modmobmap's edition)](https://github.com/FlUxIuS/xgoldmon);
@@ -10,7 +10,7 @@ For the moment, the tool has only been tested and developped for the following d
 - Samsung Galaxy S5;
 - Samsung Galaxy Note 2 with LTE;
 
-But as it's compatible for XGold via Modmobmap's forked of *xgoldmon*, this will probably include the following devices too:
+Moreover, as it's compatible for XGold via Modmobmap's forked of *xgoldmon*, this tools should also be able to work with device supported by *xgoldmon* as well:
 - Samsung Galaxy S4 GT-I9500 (this is the version without LTE!)
 - Samsung Galaxy Nexus GT-I9250 (has to be rooted!)
 - Samsung Galaxy S2 GT-I9100
@@ -154,10 +154,10 @@ Note we have been able to detect other cells the AT command *AT+COPS* did not re
 
 A complet list of MCC and MNC codes could be retrieved anywhere on internet and in Wikipedia: https://en.wikipedia.org/wiki/Mobile_country_code
 
-Focusing on some operators
----------------------------
+Focusing some operators
+------------------------
 
-It is possible to tell *Modmobmap* to only focuse on specific operators with the *-m* argument:
+It is possible to tell *Modmobmap* to focus only on specific operators with the *-m* argument:
 
 ```
 $ sudo python modmobmap.py -n 20801
@@ -189,7 +189,7 @@ Found 1 operator(s)
 Using Modmobmap with xgoldmon
 ------------------------------
 
-To use *Modmobmap* with XGold modems, the use of xgoldmon will be required. But for now, only the fork for *Modmobmap* works to retrieve exact information of cells via the DIAG interface, and could be downloaded in with the following URL: https://github.com/FlUxIuS/xgoldmon
+With XGold modems, the use of xgoldmon will be required. But for now, only the fork for *Modmobmap* works to retrieve exact information of cells via the DIAG interface, and could be downloaded at: https://github.com/FlUxIuS/xgoldmon
 
 Then after compiling, the tool *xgoldmon* could be started using the *-m* parameter like this:
 
@@ -234,7 +234,7 @@ Found 4 operator(s)
 [...]
  ```
 
-Note: Some trouble could be expected when retrieving results from AT+COPS command. The best way is to use targeted or operators in cache.
+Note that retrieving results from AT+COPS command could take a lot of time and sometime would need to restart the tool. If the tool is blocked on the operator retrieving step, please use cached or targeted operators features instead.
 
 Saving results
 ---------------
