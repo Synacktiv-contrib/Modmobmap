@@ -239,7 +239,7 @@ Note that retrieving results from AT+COPS command could take a lot of time and s
 Saving results
 ---------------
 
-The process could be stopped any time and results are save when killing the process with a keyboard interrupt signal:
+The process could be stopped any time when killing the process with a keyboard interrupt signal. Then results will be automatically save in a JSON file as follows:
 
 ```
 [...]
