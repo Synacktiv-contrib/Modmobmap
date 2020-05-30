@@ -1,3 +1,7 @@
+# Suppport 
+
+This repository is not longer maintened by his original creator. Please use the following link instead: https://github.com/PentHertz/Modmobmap
+
 Modmobmap
 ==========
 
