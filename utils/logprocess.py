@@ -3,9 +3,10 @@
 #
 # ----------------------------------------------------------------------------
 # "THE BEER-WARE LICENSE" (Revision 42):
-# <sebastien.dudek(<@T>)synacktiv.com> wrote this file. As long as you retain this notice you
+# <sebastien.dudek(<@T>)penthertz.com> wrote this file. As long as you retain this notice you
 # can do whatever you want with this stuff. If we meet some day, and you think
 # this stuff is worth it, you can buy me a beer in return FlUxIuS ;)
+# ----------------------------------------------------------------------------
 
 from __future__ import print_function
 from engines.android.generic.ADBshell import *
@@ -19,7 +20,9 @@ from threading import Thread
 import argparse
 import json
 
+
 kb = mKB()
+
 
 def statesmv(func, msg=None, wait=10, arg=None):
     if msg is not None:
@@ -30,21 +33,25 @@ def statesmv(func, msg=None, wait=10, arg=None):
         func()
     time.sleep(wait)
 
+
 def bringTestMode():
     sm = ADBshell()
     sm.androidsdkpath = mKB.config['androidsdk']
     statesmv(sm.pushsecretcode, arg='4636', wait=2)
+
 
 def bringServiceMode():
     sm = ADBshell()
     sm.androidsdkpath = mKB.config['androidsdk']
     statesmv(sm.pushsecretcode, arg='0011', wait=2)
 
+
 def startXgoldmodCollect():
     xg = xgoldmod()
     th = Thread(target=xg.parseFifo)
     th.daemon = True
     th.start()
+
 
 def startServiceModeCollect():
     sm = ServiceMode()
@@ -55,8 +62,10 @@ def startServiceModeCollect():
     th.daemon = True
     th.start()
 
+
 def printInfo(string):
     print (bcolors.OKBLUE+string+bcolors.ENDC)
+
 
 def saveCells(obj):
     import time
@@ -90,6 +99,7 @@ def processOperatorAT(operators):
             cells = kb.data['SM_cells']
             saveCells(cells)
 
+
 def processOperatorADB(operators):
     sm = ADBshell()
     sm.androidsdkpath = mKB.config['androidsdk']
@@ -114,12 +124,49 @@ def processOperatorADB(operators):
             saveCells(cells)
     process = sm.grablogcat()
 
+
+def scanGRGSM(band):
+    from engines.sdr.grgsm_scanner import do_scan
+    def trigfunc(found_list):
+        for info in sorted(found_list):
+            info.attr2dic() # trigger log 
+    do_scan(2e6, band, 4, 0, 30.0, "", trigfunc, False)
+
+
+def processGRGSM(bands):
+    state = True
+    cbands_list = ["GSM900",
+                   "DCS1800",
+                   "GSM850",
+                   "PCS1900",
+                   "GSM450",
+                   "GSM480",
+                   "GSM-R"]
+
+    if bands is None:
+        bands_list = cbands_list
+    else:
+        bands_list = bands.split(',')
+
+    while state:
+        try:
+            for band in bands_list:
+                statesmv(scanGRGSM,
+                        "=> Switching to %s band" % band, arg=band)
+        except (KeyboardInterrupt, SystemExit):
+            state = False
+            kb = mKB()
+            cells = kb.data['SM_cells']
+            saveCells(cells)
+
+
 def processManualMCCMN(string):
     dic_ = {}
     splitted = string.replace(' ','').split(',')
     for code in splitted:
         dic_[code] = code
     return dic_
+
 
 def load_operators():
     try:
@@ -134,7 +181,8 @@ def load_operators():
         f.close()
     except:
         return None
-    
+
+
 def saveMCCMNC(obj):
     jscache = json.dumps(obj, indent=4, sort_keys=True)
     f = open('cache/operators.json', 'w+')
