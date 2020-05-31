@@ -20,6 +20,22 @@ Note that all devices should be rooted. In any other case, you will have to use 
 
 Also: Patches, or engines, for other devices are very much welcomed! ;)
 
+But this is not finished yet, Modmobmap include a GRGSM scanner to scan GSM cells with SDR. Compatible SDR devices are the same as those compatible with `gr-osmosdr` as follows:
+
+* FunCube Dongle through libgnuradio-fcd
+* FUNcube Dongle Pro+ through gr-fcdproplus
+* sysmocom OsmoSDR Devices through libosmosdr
+* Nuand LLC bladeRF through libbladeRF library
+* Great Scott Gadgets HackRF through libhackrf
+* Ettus USRP Devices through Ettus UHD library
+* Fairwaves UmTRX through Fairwaves' fork of Ettus' UHD library
+* RFSPACE SDR-IQ, SDR-IP, NetSDR (incl. X2 option)
+* RTL2832U based DVB-T dongles through librtlsdr
+* RTL-TCP spectrum server (see librtlsdr project)
+* MSi2500 based DVB-T dongles through libmirisdr
+* SDRplay RSP through SDRplay API library
+* AirSpy R820t dongles through libairspy
+
 Requirements
 -------------
 
