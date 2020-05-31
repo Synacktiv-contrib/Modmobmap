@@ -236,6 +236,43 @@ Found 4 operator(s)
 
 Note that retrieving results from AT+COPS command could take a lot of time and sometime would need to restart the tool. If the tool is blocked on the operator retrieving step, please use cached or targeted operators features instead.
 
+Using Modmobmap with GRGSM
+------------------------------
+
+Modmodmap can be use with `gr-gsm` to retrieve GSM cells' information with a Software-Defined Radio device compatible with OSMOSDR.
+
+To use this feature, please issue the following command:
+
+```
+$ python modmobmap.py -m grgsm -b GSM-R,GSM900
+=> Switching to GSM-R band
+[+] New cell detected [CellID/PCI-DL_freq  (****)]
+ Network type=2G
+ PLMN=****
+ ARFCN=978
+[+] New cell detected [CellID/PCI-DL_freq  (*****)]
+ Network type=2G
+ PLMN=20820
+ ARFCN=983
+[+] New cell detected [CellID/PCI-DL_freq  (*****)]
+ Network type=2G
+ PLMN=20820
+ ARFCN=1014
+[+] New cell detected [CellID/PCI-DL_freq  (*****)]
+ Network type=2G
+ PLMN=20810
+ ARFCN=79
+[+] New cell detected [CellID/PCI-DL_freq  (****)]
+ Network type=2G
+ PLMN=20810
+ ARFCN=86
+=> Switching to GSM900 band
+[+] New cell detected [CellID/PCI-DL_freq  (*****)]
+ Network type=2G
+ PLMN=20820
+ ARFCN=978
+```
+
 Saving results
 ---------------
 
