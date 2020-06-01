@@ -1,16 +1,16 @@
 Modmobmap
 ==========
 
-Modmobmap is a tool aimed to retrieve information of cellular networks.
-As shown in the first [presentation made at BeeRump 2018](https://www.rump.beer/2018/slides/modmobmap.pdf), this tool is able to retrieve information of 2G, 3G, 4G and more cellular network types with minimum requierement: only a phone with ServiceMode.
+Modmobmap is a tool aimed to retrieve information on cellular networks.
+As shown in the first [presentation made at BeeRump 2018](https://www.rump.beer/2018/slides/modmobmap.pdf), this tool is able to retrieve information of 2G, 3G, 4G, and more cellular network types with minimum requirement: only phone with ServiceMode.
 
-For the moment, the tool has only been tested and developped for the following devices:
+For the moment, the tool has only been tested and developed for the following devices:
 - Samsung Galaxy S3 via [xgoldmon (Modmobmap's edition)](https://github.com/FlUxIuS/xgoldmon);
 - Samsung Galaxy S4;
 - Samsung Galaxy S5;
 - Samsung Galaxy Note 2 with LTE;
 
-Moreover, as it's compatible for XGold via Modmobmap's forked of *xgoldmon*, this tools should also be able to work with devices supported by *xgoldmon* as well:
+Moreover, as it's compatible for XGold via Modmobmap's forked of *xgoldmon*, this tool should also be able to work with devices supported by *xgoldmon* as well:
 - Samsung Galaxy S4 GT-I9500 (this is the version without LTE!)
 - Samsung Galaxy Nexus GT-I9250 (has to be rooted!)
 - Samsung Galaxy S2 GT-I9100
@@ -43,12 +43,12 @@ Here are the following requirements:
 - Python 2 or 3;
 - Last Android SDK to run ADB: https://developer.android.com/studio/#downloads;
 - A compatible mobile phone;
-- A valid/unvalid SIM card (just in case to provide an IMSI number).
+- A valid/invalid SIM card (just in case to provide an IMSI number).
 
 How to use
 ----------
 
-The tool is provided with a quick help that shows you the required argument as follows:
+The tool is provided with quick help that shows you the required argument as follows:
 
 ```
 python modmobmap.py -h
@@ -126,7 +126,7 @@ When looking for operators, an AT command is sent to the modem. If you want to s
 }
 ```
 
-Only the MCC/MNC codes are inmportant. Then you can re-launch the tool as follows:
+Only the MCC/MNC codes are important. Then you can re-launch the tool as follows:
 
 ```
 $ sudo python modmobmap.py -o   
@@ -166,9 +166,9 @@ Found 4 operator(s)
 [...]
 ```
 
-Note we have been able to detect other cells the AT command *AT+COPS* did not returned.
+Note we have been able to detect other cells the AT command *AT+COPS* did not return.
 
-A complet list of MCC and MNC codes could be retrieved anywhere on internet and in Wikipedia: https://en.wikipedia.org/wiki/Mobile_country_code
+A complete list of MCC and MNC codes could be retrieved anywhere on the internet and in Wikipedia: https://en.wikipedia.org/wiki/Mobile_country_code
 
 Focusing some operators
 ------------------------
@@ -205,7 +205,7 @@ Found 1 operator(s)
 Using Modmobmap with xgoldmon
 ------------------------------
 
-With XGold modems, the use of xgoldmon will be required. But for now, only the fork for *Modmobmap* works to retrieve exact information of cells via the DIAG interface, and could be downloaded at: https://github.com/FlUxIuS/xgoldmon
+With XGold modems, the use of xgoldmon will be required. But for now, only the fork for *Modmobmap* works to retrieve exact information of cells via the DIAG interface and could be downloaded at: https://github.com/FlUxIuS/xgoldmon
 
 Then after compiling, the tool *xgoldmon* could be started using the *-m* parameter like this:
 
@@ -220,7 +220,7 @@ $ ls
 celllog.fifo  Makefile   screenshot-mtsms-while-in-a-call.png  xgoldmon
 ```
 
-Then we can start running *Modmobmap* as follows precising the AT serial interface (*/dev/ttyACM0*) and the fifo file created by *xgoldmon* (*<xgoldmonpath/celllog.fifo*):
+Then we can start running *Modmobmap* as follows by specifying the AT serial interface (*/dev/ttyACM0*) and the FIFO file created by *xgoldmon* (*<xgoldmonpath/celllog.fifo*):
 
 ```
 $ sudo python3 modmobmap.py -f /<xgoldmon path>/celllog.fifo -m xgoldmod -a /dev/ttyACM0  -o
@@ -250,12 +250,12 @@ Found 4 operator(s)
 [...]
  ```
 
-Note that retrieving results from AT+COPS command could take a lot of time and sometime would need to restart the tool. If the tool is blocked on the operator retrieving step, please use cached or targeted operators features instead.
+Note that retrieving results from AT+COPS command could take a lot of time and sometime would need to restart the tool. If the tool is blocked on the operator retrieving step, please use cached or targeted operators' features instead.
 
 Using Modmobmap with GRGSM
 ------------------------------
 
-Modmodmap can be use with `gr-gsm` to retrieve GSM cells' information with a Software-Defined Radio device compatible with OSMOSDR.
+Modmodmap can be used with `gr-gsm` to retrieve GSM cells' information with a Software-Defined Radio device compatible with OSMOSDR.
 
 To use this feature, please issue the following command:
 
@@ -292,7 +292,7 @@ $ python modmobmap.py -m grgsm -b GSM-R,GSM900
 Saving results
 ---------------
 
-The process could be stopped any time when killing the process with a keyboard interrupt signal. Then results will be automatically save in a JSON file as follows:
+The process could be stopped at any time when killing the process with a keyboard interrupt signal. Then results will be automatically saved in a JSON file as follows:
 
 ```
 [...]
