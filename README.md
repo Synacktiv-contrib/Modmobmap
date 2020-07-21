@@ -49,8 +49,9 @@ Here are the following requirements:
 Ubuntu installation
 ---------------------
 
-A script installing all depencies for all engines is available in the `install_all-Ubuntu_20.04.sh`.
+A `install_all-Ubuntu_20.04.sh` script installing all dependencies for all engines is available in the root directory.
 
+For other distributions, please adapt this script base on listed dependencies.
 
 How to use
 ----------
