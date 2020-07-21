@@ -43,6 +43,7 @@ Here are the following requirements:
 - Python 2 or 3;
 - Last Android SDK to run ADB: https://developer.android.com/studio/#downloads;
 - A compatible mobile phone;
+- GNU Radio 3.8 with gr-gsm to scan GSM stations with Software-Defined Radio
 - A valid/invalid SIM card (just in case to provide an IMSI number).
 
 Ubuntu installation
