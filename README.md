@@ -45,6 +45,12 @@ Here are the following requirements:
 - A compatible mobile phone;
 - A valid/invalid SIM card (just in case to provide an IMSI number).
 
+Ubuntu installation
+---------------------
+
+A script installing all depencies for all engines is available in the `install_all-Ubuntu_20.04.sh`.
+
+
 How to use
 ----------
 
