@@ -45,9 +45,9 @@ import sys
 
 # from wideband_receiver import *
 
-class receiver_with_decoder(grgsm.hier_block):
+class receiver_with_decoder(gr.hier_block2):
     def __init__(self, OSR=4, chan_num=0, fc=939.4e6, ppm=0, samp_rate=0.2e6):
-        grgsm.hier_block.__init__(
+        gr.hier_block2.__init__(
             self, "Receiver With Decoder",
             gr.io_signature(1, 1, gr.sizeof_gr_complex * 1),
             gr.io_signature(0, 0, 0),
@@ -137,9 +137,9 @@ class receiver_with_decoder(grgsm.hier_block):
         self.samp_rate_out = samp_rate_out
 
 
-class wideband_receiver(grgsm.hier_block):
+class wideband_receiver(gr.hier_block2):
     def __init__(self, OSR=4, fc=939.4e6, samp_rate=0.4e6):
-        grgsm.hier_block.__init__(
+        gr.hier_block2.__init__(
             self, "Wideband receiver",
             gr.io_signature(1, 1, gr.sizeof_gr_complex * 1),
             gr.io_signature(0, 0, 0),
@@ -173,14 +173,14 @@ class wideband_receiver(grgsm.hier_block):
         # Connections
         ##################################################
         self.connect((self, 0), (self.pfb_channelizer_ccf_0, 0))
-        for chan in xrange(0, self.channels_num):
+        for chan in range(0, self.channels_num):
             self.connect((self.pfb_channelizer_ccf_0, chan), (self.receivers_with_decoders[chan], 0))
             self.msg_connect(self.receivers_with_decoders[chan], 'bursts', self, 'bursts')
             self.msg_connect(self.receivers_with_decoders[chan], 'msgs', self, 'msgs')
 
     def create_receivers(self):
         self.receivers_with_decoders = {}
-        for chan in xrange(0, self.channels_num):
+        for chan in range(0, self.channels_num):
             self.receivers_with_decoders[chan] = receiver_with_decoder(fc=self.fc, OSR=self.OSR, chan_num=chan,
                                                                        samp_rate=self.OSR_PFB * 0.2e6)
 
@@ -212,7 +212,7 @@ class wideband_scanner(gr.top_block):
         self.ppm = ppm
 
         # if no file name is given process data from rtl_sdr source
-        print "Args=", args
+        print("Args=", args)
         self.rtlsdr_source = osmosdr.source(args="numchan=" + str(1) + " " +
                 str(grgsm.device.get_default_args(args)))
         #self.rtlsdr_source.set_min_output_buffer(int(sample_rate*rec_len)) #this line causes segfaults on HackRF
@@ -266,6 +266,10 @@ class channel_info(object):
         self.neighbours = neighbours
         self.cell_arfcns = cell_arfcns
 
+    def __lt__(self, other):
+        return self.arfcn < other.arfcn
+
+
     def get_verbose_info(self):
         i = "  |---- Configuration: %s\n" % self.get_ccch_conf()
         i += "  |---- Cell ARFCNs: " + ", ".join(map(str, self.cell_arfcns)) + "\n"
@@ -289,7 +293,6 @@ class channel_info(object):
     def getKey(self):
         return self.arfcn
 
-
     @Cellslogger
     def attr2dic(self):
         cell = {}
@@ -299,7 +302,6 @@ class channel_info(object):
                       'type' : '2G',
                       'cid' : str(self.cid)}
         return cell
-
 
     def __cmp__(self, other):
         if hasattr(other, 'getKey'):
@@ -314,8 +316,6 @@ class channel_info(object):
     def __str__(self):
         return "ARFCN: %4u, Freq: %6.1fM, CID: %5u, LAC: %5u, MCC: %3u, MNC: %3u, Pwr: %3i" % (
             self.arfcn, self.freq / 1e6, self.cid, self.lac, self.mcc, self.mnc, self.power)
-
-
 
 def do_scan(samp_rate, band, speed, ppm, gain, args, prn = None, debug = False):
     signallist = []
@@ -334,7 +334,7 @@ def do_scan(samp_rate, band, speed, ppm, gain, args, prn = None, debug = False):
             if not debug:
                 # silence rtl_sdr output:
                 # open 2 fds
-                null_fds = [os.open(os.devnull, os.O_RDWR) for x in xrange(2)]
+                null_fds = [os.open(os.devnull, os.O_RDWR) for x in range(2)]
                 # save the current file descriptors to a tuple
                 save = os.dup(1), os.dup(2)
                 # put /dev/null fds on 1 and 2
@@ -347,18 +347,17 @@ def do_scan(samp_rate, band, speed, ppm, gain, args, prn = None, debug = False):
                                        carrier_frequency=current_freq,
                                        ppm=ppm, gain=gain, args=args)
 
-            print "record"
             # start recording
             scanner.start()
             scanner.wait()
             scanner.stop()
-            print "record2"
 
             freq_offsets = numpy.fft.ifftshift(
                 numpy.array(range(int(-numpy.floor(channels_num / 2)), int(numpy.floor((channels_num + 1) / 2)))) * 2e5)
             detected_c0_channels = scanner.gsm_extract_system_info.get_chans()
 
             found_list = []
+
             if detected_c0_channels:
                 chans = numpy.array(scanner.gsm_extract_system_info.get_chans())
                 found_freqs = current_freq + freq_offsets[(chans)]
@@ -377,7 +376,6 @@ def do_scan(samp_rate, band, speed, ppm, gain, args, prn = None, debug = False):
                     info = channel_info(grgsm.arfcn.downlink2arfcn(found_freqs[i]), found_freqs[i],
                                         cell_ids[i], lacs[i], mccs[i], mncs[i], ccch_confs[i], powers[i],
                                         neighbour_list, cell_arfcn_list)
-                    
                     found_list.append(info)
 
             scanner = None
@@ -396,7 +394,6 @@ def do_scan(samp_rate, band, speed, ppm, gain, args, prn = None, debug = False):
 
             current_freq += channels_num * 0.2e6
     return signallist
-
 
 def argument_parser():
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
@@ -445,10 +442,10 @@ def main(options = None):
 
     def printfunc(found_list):
         for info in sorted(found_list):
-            print info
+            print(info)
             if options.verbose:
-                print info.get_verbose_info()
-    print ""
+                print(info.get_verbose_info())
+    print("")
     do_scan(options.samp_rate, options.band, options.speed,
             options.ppm, options.gain, options.args, prn = printfunc, debug = options.debug)
 
