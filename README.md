@@ -36,6 +36,14 @@ But this is not finished yet, Modmobmap include a GRGSM scanner to scan GSM cell
 * SDRplay RSP through SDRplay API library
 * AirSpy R820t dongles through libairspy
 
+Modmobmap is also able to scan LTE cells by wrapping srsLTE tools. The engine supports several SDR devices:
+
+* USRP
+* BladeRF
+* HackRF
+* RFSpace
+* and so on.
+
 Requirements
 -------------
 
@@ -300,7 +308,7 @@ $ python modmobmap.py -m grgsm -b GSM-R,GSM900
 Using Modmobmap with srsLTE
 ------------------------------
 
-Modmodmap can be used with `srsLTE` to retrieve LTE cells with a Software-Defined Radio device compatible with UHD, Soapy drivers like the RTL-SDR.
+Modmodmap can be used with `srsLTE` to retrieve LTE cells with a Software-Defined Radio device compatible with UHD, and Soapy drivers like the RTL-SDR.
 
 To use this feature, please issue the following command:
 
