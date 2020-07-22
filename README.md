@@ -36,6 +36,14 @@ But this is not finished yet, Modmobmap include a GRGSM scanner to scan GSM cell
 * SDRplay RSP through SDRplay API library
 * AirSpy R820t dongles through libairspy
 
+Modmobmap is also able to scan LTE cells by wrapping srsLTE tools. The engine supports several SDR devices:
+
+* USRP
+* BladeRF
+* HackRF
+* RFSpace
+* and so on.
+
 Requirements
 -------------
 
@@ -296,6 +304,54 @@ $ python modmobmap.py -m grgsm -b GSM-R,GSM900
  PLMN=20820
  ARFCN=978
 ```
+
+Using Modmobmap with srsLTE
+------------------------------
+
+Modmodmap can be used with `srsLTE` to retrieve LTE cells with a Software-Defined Radio device compatible with UHD, and Soapy drivers like the RTL-SDR.
+
+To use this feature, please issue the following command:
+
+```
+$ sudo python modmobmap.py -m srslte_pss -b 28 -g 'id=3'                                                                                                           
+
+[INFO] [UHD] linux; GNU C++ version 9.2.1 20191008; Boost_106700; UHD_4.0.0.0-531-g5fb585c3
+[INFO] [LOGGING] Fastpath logging disabled at runtime.
+[...]
+
+Found Rafael Micro R820T tuner
+Found Rafael Micro R820T tuner
+[INFO] Using format CF32.
+
+[+] New cell detected [CellID/PCI-DL_freq  (2-9383)]
+ Network type=4G
+ PLMN=-1
+ Downlink EARFCN=9383
+[+] New cell detected [CellID/PCI-DL_freq  (95-9461)]
+ Network type=4G
+ PLMN=-1
+ Downlink EARFCN=9461
+[+] New cell detected [CellID/PCI-DL_freq  (259-9591)]
+ Network type=4G
+ PLMN=-1
+ Downlink EARFCN=9591
+[+] New cell detected [CellID/PCI-DL_freq  (259-9592)]
+ Network type=4G
+ PLMN=-1
+ Downlink EARFCN=9592
+[+] New cell detected [CellID/PCI-DL_freq  (1-9593)]
+ Network type=4G
+ PLMN=-1
+ Downlink EARFCN=9593
+[+] New cell detected [CellID/PCI-DL_freq  (1-9594)]
+ Network type=4G
+ PLMN=-1
+ Downlink EARFCN=9594
+[...]
+^C[+] Cells save as cells_1595446203.json
+```
+
+The `g` parameters is not mandatory and is used mainly to select the right device to scan the Synchronization Signals.
 
 Saving results
 ---------------
