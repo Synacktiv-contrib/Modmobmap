@@ -69,7 +69,7 @@ The tool is provided with quick help that shows you the required argument as fol
 ```
 python modmobmap.py -h
 usage: modmobmap.py [-h] [-m MODULE] [-n NETWORKS] [-o] [-s ANDROIDSDK]
-                    [-a ATMODE] [-f FILE]
+                    [-a ATMODE] [-f FILE]Before running the engine, make sure all dependencies are installed. You can refer to the installation script 
 
 Mobile network mapping tool with cheap equipments
 
@@ -309,6 +309,12 @@ Using Modmobmap with srsLTE
 ------------------------------
 
 Modmodmap can be used with `srsLTE` to retrieve LTE cells with a Software-Defined Radio device compatible with UHD, and Soapy drivers like the RTL-SDR.
+
+Before running the engine, make sure all dependencies are installed. You can refer to the installation script to install all appropriate dependencies. Also make sure that all submodules are pulled from the repository:
+
+```
+git submodule update --remote
+```
 
 To use this feature, please issue the following command:
 
