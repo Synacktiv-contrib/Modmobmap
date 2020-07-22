@@ -1,0 +1,3 @@
+[submodule "thirdparty/srsLTE"]
+	path = thirdparty/srsLTE
+	url = https://github.com/PentHertz/srsLTE.git

@@ -11,6 +11,7 @@
 from __future__ import print_function
 from utils.logprocess import *
 
+SRSLTE_PATH = "thirdparty/srsLTE/" # thirdparty project
 
 def phone_actions(args):
     cops = None
@@ -50,7 +51,7 @@ if __name__ == "__main__":
     parser.add_argument('-m', '--module', dest='module', required=False, default='servicemode',
             help='Module to use (e.g: "servicemode" by default).')
     parser.add_argument('-b', '--bands', dest='bands', required=False, default=None,
-            help='Bands to use for SDR engines (for GSM: GSM900, DCS1800, GSM850, PCS1900, GSM450, GSM480, GSM-R). A list can be provided separated with commas.')
+            help='Bands to use for SDR engines (for GSM: GSM900, DCS1800, GSM850, PCS1900, GSM450, GSM480, GSM-R. For LTE provide band indexes such as 28 for B28 at 700 MHz, etc.). A list can be provided separated with commas.')
     parser.add_argument('-n', '--networks', dest='networks', required=False, default=None,
             help='Networks in MCCMNC format splitted with commas')
     parser.add_argument('-o', '--cached_operator', dest='operators', required=False, default=False, action='store_true',
@@ -59,19 +60,39 @@ if __name__ == "__main__":
             help='Android SDK path')
     parser.add_argument('-a', '--at', dest='atmode', required=False, default=None,
                         help='AT access mode. If host put something like "/dev/ttyUSBxx. By default it uses ADB."')
+    parser.add_argument('-g', '--args', dest='dargs', required=False, default=None,
+                        help='Device args for SDR engines')
     parser.add_argument('-f', '--file', dest='file', required=False, default=None,
                                         help='File to parse. For the moment it could be used in combination with AT mode host.')
     args = parser.parse_args()
     
+    phoneinteract = False
+
     kb = mKB()
     kb.config['androidsdk'] = args.androidsdk
+    kb.config['device_args'] = args.dargs
     if args.file is not None:
         kb.config['file'] = args.file
     if args.module == "xgoldmod":
         startXgoldmodCollect()
+        phoneinteract = True
+    elif args.module == "srslte_pss":
+        kb.config['SRSLTETOOLS_PATH'] = SRSLTE_PATH + "build/lib/examples/"
+        kb.config['file'] = "celllog.fifo"
+        if args.file is not None:
+            kb.config['file'] = args.file
+
+        if args.bands is not None:
+            kb.config['bands'] = args.bands
+        else:
+            print ("Bands argument not set! Using band 7 by default instead.")
+            kb.config['bands'] = "7"
+        startSrsLTEPSS()
     elif args.module == "grgsm":
         processGRGSM(args.bands)
     else:
         startServiceModeCollect()
-    if args.module != "grgsm":
+        phoneinteract = True
+
+    if phoneinteract is True:
         phone_actions(args)
