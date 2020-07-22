@@ -45,6 +45,7 @@ cd tools
 ./bin/sdkmanager --sdk_root=/opt/Android --update
 sudo ./bin/sdkmanager --sdk_root=/opt/Android --install platform-tools
 echo "[+] Installing dependencies for srsLTE"
+sudo apt-get install cmake libfftw3-dev libmbedtls-dev libboost-program-options-dev libconfig++-dev libsctp-dev
 sudo apt install libsoapysdr-dev
 #osmo sdr support:
 sudo apt-get install osmo-sdr soapysdr-module-osmosdr
