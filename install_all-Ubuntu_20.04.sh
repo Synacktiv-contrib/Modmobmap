@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+echo "[+] Retrieving submodules"
+git submodule update --init --recursive
+
 echo "[+] Installing Python3 requirements"
 sudo python3 -m pip install --upgrade pip
 sudo python3 -m pip install -r requirements.txt
@@ -21,13 +24,14 @@ sudo apt install gr-osmosdr
 echo "[+] Downloading gr-gsm for Python3 and GNU Radio 3.8"
 mkdir thirdparty
 cd thirdparty
+REMPATH=`pwd`
 git clone -b maint-3.8 https://github.com/velichkov/gr-gsm.git
 echo "[+] Building and installing gr-gsm for GNU Radio 3.8"
 cd gr-gsm
 mkdir build
 cd build
 cmake ../
-make
+make -j$(nproc)
 sudo make install
 sudo ln -s /usr/local/lib/python3/dist-packages/grgsm /usr/lib/python3/dist-packages/
 sudo ln -s /usr/local/lib/x86_64-linux-gnu/libgrgsm.so.1.0.0git /usr/lib/x86_64-linux-gnu/libgrgsm.so.1.0.0git
@@ -40,4 +44,29 @@ sudo mkdir -p /opt/Android
 cd tools
 ./bin/sdkmanager --sdk_root=/opt/Android --update
 sudo ./bin/sdkmanager --sdk_root=/opt/Android --install platform-tools
+echo "[+] Installing dependencies for srsLTE"
+sudo apt install libsoapysdr-dev
+#osmo sdr support:
+sudo apt-get install osmo-sdr soapysdr-module-osmosdr
+#rtl sdr support:
+sudo apt-get install rtl-sdr soapysdr-module-rtlsdr
+#blade rf support:
+sudo apt-get install bladerf soapysdr-module-bladerf
+#hack rf support:
+sudo apt-get install hackrf soapysdr-module-hackrf
+#usrp support:
+sudo apt-get install uhd-host uhd-soapysdr soapysdr-module-uhd
+#miri SDR support:
+sudo apt-get install miri-sdr soapysdr-module-mirisdr
+#rf space support:
+sudo apt-get install soapysdr-module-rfspace
+#airspy support:
+sudo apt-get install airspy soapysdr-module-airspy
+echo "[+] Installaing srsLTE for Modmobmap"
+cd $REMPATH
+cd srsLTE
+mkdir build
+cd build
+cmake ../
+make -j$(nproc)
 echo "====END===="
