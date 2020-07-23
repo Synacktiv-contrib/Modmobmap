@@ -313,7 +313,7 @@ Modmodmap can be used with `srsLTE` to retrieve LTE cells with a Software-Define
 Before running the engine, make sure all dependencies are installed. You can refer to the installation script to install all appropriate dependencies. Also make sure that all submodules are pulled from the repository:
 
 ```
-git submodule update --remote
+git submodule update --init --recursive
 ```
 
 To use this feature, please issue the following command:
