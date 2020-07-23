@@ -54,14 +54,14 @@ def startXgoldmodCollect():
     th.start()
 
 
-def startSrsLTEPSSProcess():
+def startSrsLTExPSSProcess(cmdprog):
     import subprocess
     state = True
     bands = mKB.config['bands'].split(",")
     while state:
         try:
             for band in bands:
-                commandstring = [mKB.config['SRSLTETOOLS_PATH']+"cell_search_modmobmap", "-b", band]
+                commandstring = [mKB.config['SRSLTETOOLS_PATH']+cmdprog, "-b", band]
                 if mKB.config['device_args'] is not None:
                     commandstring.append("-a")
                     commandstring.append(mKB.config['device_args'])
@@ -73,11 +73,34 @@ def startSrsLTEPSSProcess():
             saveCells(cells)
 
 
+def startSrsLTENPSSProcess():
+    startSrsLTExPSSProcess("cell_search_nbiot_modmobmap")
+
+
+def startSrsLTEPSSProcess():
+    startSrsLTExPSSProcess("cell_search_modmobmap")
+
+
 def startSrsLTEPSSCollect():
     srs = srslte_pss()
     th = Thread(target=srs.parseFifo)
     th.daemon = True
     th.start()
+
+
+def startSrsLTEPSS():
+    th = Thread(target=startSrsLTEPSSProcess)
+    th.daemon = True
+    th.start()
+    startSrsLTENPSSCollect()
+    state = True
+    while state:
+        try:
+            pass
+        except (KeyboardInterrupt, SystemExit):
+            state = False
+            cells = kb.data['SM_cells']
+            saveCells(cells)
 
 
 def startSrsLTEPSS():
@@ -100,6 +123,7 @@ def startSrsLTEPSSCollect():
     th = Thread(target=srs.parseFifo)
     th.daemon = True
     th.start()
+
 
 def startServiceModeCollect():
     sm = ServiceMode()

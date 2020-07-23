@@ -76,7 +76,7 @@ if __name__ == "__main__":
     if args.module == "xgoldmod":
         startXgoldmodCollect()
         phoneinteract = True
-    elif args.module == "srslte_pss":
+    elif args.module == "srslte_pss" or args.module == "srslte_npss":
         kb.config['SRSLTETOOLS_PATH'] = SRSLTE_PATH + "build/lib/examples/"
         kb.config['file'] = "celllog.fifo"
         if args.file is not None:
