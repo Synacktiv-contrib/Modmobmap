@@ -359,6 +359,32 @@ Found Rafael Micro R820T tuner
 
 The `g` parameters is not mandatory and is used mainly to select the right device to scan the Synchronization Signals.
 
+For NB-IoT scanning, you can use the `srslte_npss` option as follows:
+
+```
+$ sudo python modmobmap.py -m srslte_npss -b 20 -g 'id=3'
+[INFO] [UHD] linux; GNU C++ version 9.2.1 20191008; Boost_106700; UHD_4.0.0.0-531-g5fb585c3
+[INFO] [LOGGING] Fastpath logging disabled at runtime.
+
+Found Rafael Micro R820T tuner
+Found Rafael Micro R820T tuner
+[INFO] Using format CF32.
+[R82XX] PLL not locked!
+[+] New cell detected [CellID/PCI-DL_freq  (1-6200)]
+ Network type=4G
+ PLMN=-1
+ Downlink EARFCN=6200
+[+] New cell detected [CellID/PCI-DL_freq  (1-6203)]
+ Network type=4G
+ PLMN=-1
+ Downlink EARFCN=6203
+[+] New cell detected [CellID/PCI-DL_freq  (446-6400)]
+ Network type=4G
+ PLMN=-1
+ Downlink EARFCN=6400
+[...]
+```
+
 Saving results
 ---------------
 
