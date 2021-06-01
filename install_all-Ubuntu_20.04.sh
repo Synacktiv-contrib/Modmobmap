@@ -10,7 +10,8 @@ sudo python3 -m pip install -r requirements.txt
 echo "[+] Installing GNU Radio dependencies"
 sudo add-apt-repository ppa:gnuradio/gnuradio-releases
 sudo apt-get update
-sudo apt-get install gnuradio
+gnuradioversion=$(sudo apt policy gnuradio|egrep -i "3.8(.*)"|sed 's/ 500//'|sed 's/     //')
+sudo apt-get install gnuradio=$gnuradioversion # forcing GNU Radio 3.8 installation
 
 sudo apt install git cmake g++ libboost-all-dev libgmp-dev swig python3-numpy \
 python3-mako python3-sphinx python3-lxml doxygen libfftw3-dev \
