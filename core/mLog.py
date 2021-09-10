@@ -36,7 +36,8 @@ def Cellslogger(func):
                     string2print += "\n\r Downlink EARFCN=%i" % v['eARFCN']
                 elif '3G' in v['type']:
                     string2print += "\n\r Downlink UARFCN=%i" % v['RX']
-                    string2print += "\n\r Uplink UARFCN=%i" % v['TX']
+                    if 'TX' in v:
+                        string2print += "\n\r Uplink UARFCN=%i" % v['TX']
                 elif '2G' in v['type']:
                     string2print += "\n\r ARFCN=%i" % v['arfcn']
                 print (bcolors.OKGREEN+string2print+bcolors.ENDC)
