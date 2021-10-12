@@ -45,6 +45,7 @@ class srslte_pss(object):
                     tmpcell2[cid] = {    'FREQ' : tmpcell['FREQ'],
                                          'PLMN' : "-1",
                                          'type' : "4G",
+                                         'band' : "-1",
                                          'eARFCN' : int(tmpcell['DL_EARFCN']),
                                          'POWER' : tmpcell['POWER'], 
                                      }
