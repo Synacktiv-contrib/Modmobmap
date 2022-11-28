@@ -202,7 +202,7 @@ def scanGRGSM(band):
     def trigfunc(found_list):
         for info in sorted(found_list):
             info.attr2dic() # trigger log 
-    do_scan(2e6, band, 4, 0, 30.0, "", trigfunc, False)
+    do_scan(2e6, band, 4, 0, 30.0, "id=0", trigfunc, False)
 
 
 def processGRGSM(bands):
