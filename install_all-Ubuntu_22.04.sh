@@ -10,7 +10,7 @@ sudo python3 -m pip install -r requirements.txt
 echo "[+] Installing GNU Radio dependencies"
 sudo add-apt-repository ppa:gnuradio/gnuradio-releases
 sudo apt-get update
-gnuradioversion=$(sudo apt policy gnuradio|egrep -i "3.8(.*)"|sed 's/ 500//'|sed 's/     //')
+gnuradioversion=$(sudo apt policy gnuradio|egrep -i "3.10(.*)"|sed 's/ 500//'|sed 's/     //')
 sudo apt-get install gnuradio=$gnuradioversion # forcing GNU Radio 3.8 installation
 
 sudo apt install git cmake g++ libboost-all-dev libgmp-dev swig python3-numpy \
@@ -22,25 +22,23 @@ python3-zmq python3-scipy python3-gi python3-gi-cairo gobject-introspection gir1
 echo "[+] Installing gr-osmosdr package"
 sudo apt install gr-osmosdr
 
-echo "[+] Downloading gr-gsm for Python3 and GNU Radio 3.8"
+echo "[+] Downloading gr-gsm for Python3 and GNU Radio 3.10"
 mkdir thirdparty
 cd thirdparty
 REMPATH=`pwd`
-git clone -b maint-3.8 https://github.com/velichkov/gr-gsm.git
-echo "[+] Building and installing gr-gsm for GNU Radio 3.8"
+git clone https://github.com/bkerler/gr-gsm
+echo "[+] Building and installing gr-gsm for GNU Radio 3.10"
 cd gr-gsm
 mkdir build
 cd build
-cmake ../
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../
 make -j$(nproc)
 sudo make install
-sudo ln -s /usr/local/lib/python3/dist-packages/grgsm /usr/lib/python3/dist-packages/
-sudo ln -s /usr/local/lib/x86_64-linux-gnu/libgrgsm.so.1.0.0git /usr/lib/x86_64-linux-gnu/libgrgsm.so.1.0.0git
 cd ../../
 echo "[+] Installing SDK tools"
-sudo apt install openjdk-14-jdk
-wget https://dl.google.com/android/repository/commandlinetools-linux-6609375_latest.zip
-unzip commandlinetools-linux-6609375_latest.zip
+sudo apt install openjdk-17-jdk
+wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
+unzip platform-tools-latest-linux.zip
 sudo mkdir -p /opt/Android
 cd tools
 ./bin/sdkmanager --sdk_root=/opt/Android --update
