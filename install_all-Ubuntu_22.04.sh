@@ -59,9 +59,7 @@ sudo apt install openjdk-17-jdk
 wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
 unzip platform-tools-latest-linux.zip
 sudo mkdir -p /opt/Android
-cd platform-tools
-./bin/sdkmanager --sdk_root=/opt/Android --update
-sudo ./bin/sdkmanager --sdk_root=/opt/Android --install platform-tools
+sudo cp -R platform-tools
 echo "[+] Installing dependencies for srsLTE"
 sudo apt-get install cmake libfftw3-dev libmbedtls-dev libboost-program-options-dev libconfig++-dev libsctp-dev
 sudo apt install libsoapysdr-dev
