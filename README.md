@@ -320,7 +320,7 @@ git submodule update --init --recursive
 To use this feature, please issue the following command:
 
 ```
-$ sudo python modmobmap.py -m srslte_pss -b 28 -d 'bladerf'                                                                                                           
+$ sudo python modmobmap.py -m srslte_pss -b 28 -g 'bladerf'                                                                                                           
 
 [INFO] [UHD] linux; GNU C++ version 9.2.1 20191008; Boost_106700; UHD_4.0.0.0-531-g5fb585c3
 [INFO] [LOGGING] Fastpath logging disabled at runtime.
@@ -363,7 +363,7 @@ The `g` parameters is not mandatory and is used mainly to select the right devic
 For NB-IoT scanning, you can use the `srslte_npss` option as follows:
 
 ```
-$ sudo python modmobmap.py -m srslte_npss -b 20 -g 'id=3'
+$ sudo python modmobmap.py -m srslte_npss -b 20 -g 'bladerf'
 [INFO] [UHD] linux; GNU C++ version 9.2.1 20191008; Boost_106700; UHD_4.0.0.0-531-g5fb585c3
 [INFO] [LOGGING] Fastpath logging disabled at runtime.
 
