@@ -320,7 +320,7 @@ git submodule update --init --recursive
 To use this feature, please issue the following command:
 
 ```
-$ sudo python modmobmap.py -m srslte_pss -b 28 -g 'id=3'                                                                                                           
+$ sudo python modmobmap.py -m srslte_pss -b 28 -d 'bladerf'                                                                                                           
 
 [INFO] [UHD] linux; GNU C++ version 9.2.1 20191008; Boost_106700; UHD_4.0.0.0-531-g5fb585c3
 [INFO] [LOGGING] Fastpath logging disabled at runtime.
