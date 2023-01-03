@@ -63,7 +63,7 @@ def startSrsLTExPSSProcess(cmdprog):
             for band in bands:
                 commandstring = [mKB.config['SRSLTETOOLS_PATH']+cmdprog, "-b", band]
                 if mKB.config['device_args'] is not None:
-                    commandstring.append("-a")
+                    commandstring.append("-d")
                     commandstring.append(mKB.config['device_args'])
                 p = subprocess.Popen(commandstring, stdout=subprocess.PIPE)
                 p.wait()
@@ -88,8 +88,8 @@ def startSrsLTEPSSCollect():
     th.start()
 
 
-def startSrsLTEPSS():
-    th = Thread(target=startSrsLTEPSSProcess)
+def startSrsLTENPSS():
+    th = Thread(target=startSrsLTENPSSProcess)
     th.daemon = True
     th.start()
     startSrsLTENPSSCollect()
