@@ -395,3 +395,7 @@ The process could be stopped at any time when killing the process with a keyboar
 [...]
 ^C[+] Cells save as cells_1528738901.json
 ```
+
+## Docker image
+
+To avoid any issue installing the whole project, we have also a Docker container available at this address: https://hub.docker.com/r/penthertz/modmobmap-beta
