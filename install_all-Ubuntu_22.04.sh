@@ -10,14 +10,26 @@ sudo python3 -m pip install -r requirements.txt
 echo "[+] Installing GNU Radio dependencies"
 sudo add-apt-repository ppa:gnuradio/gnuradio-releases
 sudo apt-get update
-gnuradioversion=$(sudo apt policy gnuradio|egrep -i "3.10(.*)"|sed 's/ 500//'|sed 's/     //')
-sudo apt-get install gnuradio=$gnuradioversion # forcing GNU Radio 3.8 installation
+gnuradioversion=$(sudo apt policy gnuradio|egrep -i "3.10(.*) 500"|sed 's/     //'|sed 's/ 500//')
+sudo apt-get install gnuradio=$gnuradioversion # forcing GNU Radio 3.10 installation
 
 sudo apt install git cmake g++ libboost-all-dev libgmp-dev swig python3-numpy \
 python3-mako python3-sphinx python3-lxml doxygen libfftw3-dev \
 libsdl1.2-dev libgsl-dev libqwt-qt5-dev libqt5opengl5-dev python3-pyqt5 \
 liblog4cpp5-dev libzmq3-dev python3-yaml python3-click python3-click-plugins \
-python3-zmq python3-scipy python3-gi python3-gi-cairo gobject-introspection gir1.2-gtk-3.0
+python3-zmq python3-scipy python3-gi python3-gi-cairo gobject-introspection gir1.2-gtk-3.0 \
+libsndfile-dev libtalloc-dev libpcsclite-dev wget unzip
+
+echo "[+] Installing osmocore"
+sudo apt-get install build-essential libtool libtalloc-dev libsctp-dev shtool autoconf automake git-core pkg-config make gcc gnutls-dev libusb-1.0-0-dev libmnl-dev
+git clone https://gitea.osmocom.org/osmocom/libosmocore.git
+cd libosmocore/
+autoreconf -i
+./configure
+make
+sudo make install
+sudo ldconfig -i
+cd ..
 
 echo "[+] Installing gr-osmosdr from source"
 mkdir thirdparty
@@ -47,7 +59,7 @@ sudo apt install openjdk-17-jdk
 wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
 unzip platform-tools-latest-linux.zip
 sudo mkdir -p /opt/Android
-cd tools
+cd platform-tools
 ./bin/sdkmanager --sdk_root=/opt/Android --update
 sudo ./bin/sdkmanager --sdk_root=/opt/Android --install platform-tools
 echo "[+] Installing dependencies for srsLTE"
