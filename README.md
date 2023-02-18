@@ -363,7 +363,7 @@ The `g` parameters is not mandatory and is used mainly to select the right devic
 For NB-IoT scanning, you can use the `srslte_npss` option as follows:
 
 ```
-$ sudo python modmobmap.py -m srslte_npss -b 20 -g 'bladerf'
+$ sudo python modmobmap.py -m srslte_npss -b 20 -g 'driver=bladerf'
 [INFO] [UHD] linux; GNU C++ version 9.2.1 20191008; Boost_106700; UHD_4.0.0.0-531-g5fb585c3
 [INFO] [LOGGING] Fastpath logging disabled at runtime.
 
