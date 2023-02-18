@@ -55,6 +55,7 @@ def startXgoldmodCollect():
 
 
 def startSrsLTExPSSProcess(cmdprog):
+    global state
     import subprocess
     state = True
     bands = mKB.config['bands'].split(",")
@@ -63,10 +64,9 @@ def startSrsLTExPSSProcess(cmdprog):
             for band in bands:
                 commandstring = [mKB.config['SRSLTETOOLS_PATH']+cmdprog, "-b", band]
                 if mKB.config['device_args'] is not None:
-                    commandstring.append("-d")
+                    commandstring.append("-a")
                     commandstring.append(mKB.config['device_args'])
-                p = subprocess.Popen(commandstring, stdout=subprocess.PIPE)
-                p.wait()
+                p = subprocess.run(commandstring)
         except (KeyboardInterrupt, SystemExit):
             state = False
             cells = kb.data['SM_cells']
@@ -82,6 +82,7 @@ def startSrsLTEPSSProcess():
 
 
 def startSrsLTEPSSCollect():
+    print("STARTED COLLECT")
     srs = srslte_pss()
     th = Thread(target=srs.parseFifo)
     th.daemon = True
@@ -94,6 +95,7 @@ def startSrsLTENPSS():
     th.start()
     startSrsLTENPSSCollect()
     state = True
+    th.join()
     while state:
         try:
             pass
@@ -102,13 +104,15 @@ def startSrsLTENPSS():
             cells = kb.data['SM_cells']
             saveCells(cells)
 
-
+import signal 
 def startSrsLTEPSS():
+    #global th, state
     th = Thread(target=startSrsLTEPSSProcess)
     th.daemon = True
     th.start()
     startSrsLTEPSSCollect()
-    state = True
+    state=True
+    th.join()
     while state:
         try:
             pass
@@ -117,6 +121,15 @@ def startSrsLTEPSS():
             cells = kb.data['SM_cells']
             saveCells(cells)
 
+def signal_handler(sig, frame):
+    global th, state
+    print('Keyboard interrupt received, stopping srsLTE PSS...')
+    state = False
+    cells = kb.data['SM_cells']
+    saveCells(cells)
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
 
 def startSrsLTEPSSCollect():
     srs = srslte_pss()
@@ -248,7 +261,7 @@ def load_operators():
         if len(operators) > 0 or operators is not None:
             print (bcolors.WARNING+"Found %i operators in cache, do you want to reuse them?:\n\t%s"+bcolors.ENDC % (len(operators), str(operators)))
             answ = input('(Y)es or (N)o?')
-            if answ.lower() is 'y':
+            if answ.lower() == 'y':
                 return operators
         f.close()
     except:

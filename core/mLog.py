@@ -27,19 +27,19 @@ def Cellslogger(func):
         if id_ not in kb.data['SM_cells'] and id_ is not None:
             kb.data['SM_cells'][id_] = v
             if kb.config['verbose'] == True:
-                string2print = "[+] New cell detected [CellID/PCI-DL_freq  (%s)]" % id_
-                string2print += "\n\r Network type=%s" % v['type']
-                string2print += "\n\r PLMN=%s" % v['PLMN']
+                string2print = "[+] New cell detected [CellID/PCI-DL_freq  ({})]".format(id_)
+                string2print += "\n\r Network type={}".format(v['type'])
+                string2print += "\n\r PLMN={}".format(v['PLMN'])
                 if 'band' in v:
-                    string2print += "\n\r Band=%i" % v['band']
+                    string2print += "\n\r Band={}".format(v['band'])
                 if '4G' in v['type']:
-                    string2print += "\n\r Downlink EARFCN=%i" % v['eARFCN']
+                    string2print += "\n\r Downlink EARFCN={}".format(v['eARFCN'])
                 elif '3G' in v['type']:
-                    string2print += "\n\r Downlink UARFCN=%i" % v['RX']
+                    string2print += "\n\r Downlink UARFCN={}".format(v['RX'])
                     if 'TX' in v:
-                        string2print += "\n\r Uplink UARFCN=%i" % v['TX']
+                        string2print += "\n\r Uplink UARFCN={}".format(v['TX'])
                 elif '2G' in v['type']:
-                    string2print += "\n\r ARFCN=%i" % v['arfcn']
+                    string2print += "\n\r ARFCN={}".format(v['arfcn'])
                 print (bcolors.OKGREEN+string2print+bcolors.ENDC)
         return result
     return wrapped
