@@ -65,7 +65,7 @@ if __name__ == "__main__":
             help='Networks in MCCMNC format splitted with commas')
     parser.add_argument('-o', '--cached_operator', dest='operators', required=False, default=False, action='store_true',
             help='Use operator in cache to speed up the passive scan.')
-    parser.add_argument('-s', '--sdk', dest='androidsdk', required=False, default='/opt/Android',
+    parser.add_argument('-s', '--sdk', dest='androidsdk', required=False, default='thirdparty/platform-tools',
             help='Android SDK path')
     parser.add_argument('-a', '--at', dest='atmode', required=False, default=None,
             help='AT access mode. If host put something like "/dev/ttyUSBxx. By default it uses ADB."')
