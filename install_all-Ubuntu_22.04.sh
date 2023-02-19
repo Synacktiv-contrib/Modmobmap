@@ -17,6 +17,23 @@ install_latest_gnuradio() {
         sudo apt-get install gnuradio=$gnuradioversion # forcing GNU Radio 3.10 installation
 }
 
+install_antsdr_uhd() {
+	sudo apt-get install autoconf automake build-essential ccache cmake cpufrequtils doxygen ethtool \
+	g++ git inetutils-tools libboost-all-dev libncurses5 libncurses5-dev libusb-1.0-0 libusb-1.0-0-dev \
+	libusb-dev python3-dev python3-mako python3-numpy python3-requests python3-scipy python3-setuptools \
+	python3-ruamel.yaml
+	git clone https://github.com/MicroPhase/antsdr_uhd.git
+	cd antsdr_uhd
+	cd host/
+	mkdir build
+	cd build
+	cmake ../
+	make -j$(nproc)
+	sudo make install
+	sudo ldconifg
+	cd ../../
+}
+
 if [ -z "$installedgnuradio_version" ]
 then
 	while true; do
@@ -39,6 +56,15 @@ liblog4cpp5-dev libzmq3-dev python3-yaml python3-click python3-click-plugins \
 python3-zmq python3-scipy python3-gi python3-gi-cairo gobject-introspection gir1.2-gtk-3.0 \
 libsndfile-dev libtalloc-dev libpcsclite-dev wget unzip python3-pip libbladerf-dev \
 libuhd-dev uhd-host librtlsdr-dev
+
+while true; do
+	read -p "Do you which to install the UHD version of ANTSDR (YES), or the original one [NO]? " yn
+        case $yn in
+                [Yy]* ) install_antsdr_uhd; break;;
+                [Nn]* ) sudo apt install libuhd-dev uhd-host librtlsdr-dev; break;;
+                * ) echo "Please answer [Y]yes or [N]no.";;
+        esac
+done
 
 sudo pip3 install pyserial
 
@@ -94,7 +120,7 @@ sudo apt-get install bladerf soapysdr-module-bladerf
 #hack rf support:
 sudo apt-get install hackrf soapysdr-module-hackrf
 #usrp support:
-sudo apt-get install uhd-host uhd-soapysdr soapysdr-module-uhd
+sudo apt-get install uhd-soapysdr soapysdr-module-uhd
 #miri SDR support:
 sudo apt-get install miri-sdr soapysdr-module-mirisdr
 #rf space support:
