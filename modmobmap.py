@@ -61,7 +61,7 @@ if __name__ == "__main__":
     parser.add_argument('-a', '--at', dest='atmode', required=False, default=None,
             help='AT access mode. If host put something like "/dev/ttyUSBxx. By default it uses ADB."')
     parser.add_argument('-g', '--args', dest='dargs', required=False, default=None,
-            help='Device name arg for SDR engines (e.g: bladerf))')
+            help='Device name arg for SDR engines (e.g: soapy:id=0))')
     parser.add_argument('-f', '--file', dest='file', required=False, default=None,
                                         help='File to parse. For the moment it could be used in combination with AT mode host.')
     args = parser.parse_args()
