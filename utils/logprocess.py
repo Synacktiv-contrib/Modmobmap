@@ -222,7 +222,10 @@ def scanGRGSM(band):
     def trigfunc(found_list):
         for info in sorted(found_list):
             info.attr2dic() # trigger log 
-    do_scan(2e6, band, 4, 0, 30.0, "id=0", trigfunc, False)
+    device_args = ""
+    if mKB.config['device_args'] is not None:
+        device_args = mKB.config['device_args']
+    do_scan(2e6, band, 4, 0, 30.0, device_args, trigfunc, False)
 
 
 def processGRGSM(bands):
