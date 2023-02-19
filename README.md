@@ -447,4 +447,4 @@ The process could be stopped at any time when killing the process with a keyboar
 
 To avoid any issue installing the whole project, we have also a Docker container available at this address: https://hub.docker.com/r/penthertz/modmobmap
 
-You can now use the `latest_with_e200` which is compatible with the ANTSDR E200.
+You can now use the `latest_with_e200` tag which is compatible with the ANTSDR E200.
