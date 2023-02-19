@@ -159,7 +159,6 @@ def printInfo(string):
 
 def saveCells(obj):
     import time
-    repr(obj)
     jscells = json.dumps(obj, indent=4, sort_keys=True)
     name = "cells_%d.json" % float(time.time())
     f = open("%s" % name, 'w+')
@@ -187,8 +186,9 @@ def processOperatorAT(operators):
                         "=> Switching back to auto-mode", arg=2)
         except (KeyboardInterrupt, SystemExit):
             state = False
-            cells = kb.data['SM_cells']
-            saveCells(cells)
+            break
+    cells = kb.data['SM_cells']
+    saveCells(cells)
 
 
 def processOperatorADB(operators):
@@ -210,9 +210,9 @@ def processOperatorADB(operators):
                         "=> Switching back to auto-mode", arg=2)
         except (KeyboardInterrupt, SystemExit):
             state = False
-            kb = mKB()
-            cells = kb.data['SM_cells']
-            saveCells(cells)
+            break
+    cells = kb.data['SM_cells']
+    saveCells(cells)
     process = sm.grablogcat()
 
 

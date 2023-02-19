@@ -13,6 +13,15 @@ from utils.logprocess import *
 
 SRSLTE_PATH = "thirdparty/srsLTE/" # thirdparty project
 
+
+FILES_TO_REMOVE = ["celllog.fifo"]
+
+def cleaning_file():
+    import os
+    for f in FILES_TO_REMOVE:
+        os.remove(f)
+
+
 def phone_actions(args):
     cops = None
     if args.networks is not None:
