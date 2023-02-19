@@ -309,6 +309,14 @@ $ python modmobmap.py -m grgsm -b GSM-R,GSM900
 Using Modmobmap with srsRAN
 ------------------------------
 
+
+Supported drivers:
+
+* uhd
+* bladerf
+* soapy
+
+
 Modmodmap can be used with `srsRAN` to retrieve LTE cells with a Software-Defined Radio device compatible with UHD, and Soapy drivers like the RTL-SDR.
 
 Before running the engine, make sure all dependencies are installed. You can refer to the installation script to install all appropriate dependencies. Also make sure that all submodules are pulled from the repository:
