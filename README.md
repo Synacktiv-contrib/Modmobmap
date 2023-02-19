@@ -328,16 +328,21 @@ git submodule update --init --recursive
 To use this feature, please issue the following command:
 
 ```
-$ sudo python modmobmap.py -m srslte_pss -b 28 -g 'soapy:id=1' # you need to precise the driver, and id of the device that way                                                                                                          
-
-[INFO] [UHD] linux; GNU C++ version 9.2.1 20191008; Boost_106700; UHD_4.0.0.0-531-g5fb585c3
-[INFO] [LOGGING] Fastpath logging disabled at runtime.
+python3 modmobmap.py -m srslte_pss -b 28 -g 'soapy:id=1'
+Active RF plugins: libsrsran_rf_uhd.so libsrsran_rf_soapy.so libsrsran_rf_blade.so libsrsran_rf_zmq.so
+Inactive RF plugins: 
+Opening RF device...
+Supported RF device list: UHD soapy bladeRF zmq file
+[INFO] [UHD] linux; GNU C++ version 9.2.1 20200304; Boost_107100; UHD_3.15.0.0-2build5
+Found Rafael Micro R820T tuner
+Soapy has found device #0: driver=SpectranV6, label=SpectranV6 RTSA HTTP Stream, manufacturer=HB9FXQ, product=SpectranV6 RTSA HTTP Stream, serial=SPECTRAN-V6-00000000000, 
+Soapy has found device #1: available=Yes, driver=rtlsdr, label=Generic RTL2832U OEM :: 00000001, manufacturer=Realtek, product=RTL2838UHIDIR, rtl=0, serial=00000001, tuner=Rafael Micro R820T, 
+Selecting Soapy device: 1
 [...]
-
-Found Rafael Micro R820T tuner
-Found Rafael Micro R820T tuner
-[INFO] Using format CF32.
-
+ Network type=4G
+ PLMN=-1
+ Band=-1
+ Downlink EARFCN=9233
 [+] New cell detected [CellID/PCI-DL_freq  (2-9383)]
  Network type=4G
  PLMN=-1
