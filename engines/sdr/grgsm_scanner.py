@@ -551,7 +551,7 @@ class channel_info(object):
     def attr2dic(self):
         cell = {}
         cid2 = str(self.cid) + '_' + str(self.arfcn)
-        cell[self.cid] = {'PLMN' : str(self.mcc)+str(self.mnc),
+        cell[cid2] = {'PLMN' : str(self.mcc)+str(self.mnc),
                       'arfcn' : int(self.arfcn),
                       'type' : '2G',
                       'cid' : str(self.cid)}

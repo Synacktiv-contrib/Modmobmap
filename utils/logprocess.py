@@ -20,10 +20,19 @@ import time
 from threading import Thread
 import argparse
 import json
-
+import signal
 
 kb = mKB()
 
+def signal_handler(sig, frame):
+    global th, state
+    print('Keyboard interrupt received, stopping cellmapping and saving results...')
+    state = False
+    cells = kb.data['SM_cells']
+    saveCells(cells)
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
 
 def statesmv(func, msg=None, wait=10, arg=None):
     if msg is not None:
@@ -111,7 +120,6 @@ def startSrsLTENPSS():
             cells = kb.data['SM_cells']
             saveCells(cells)
 
-import signal 
 def startSrsLTEPSS():
     #global th, state
     th = Thread(target=startSrsLTEPSSProcess)
@@ -127,16 +135,6 @@ def startSrsLTEPSS():
             state = False
             cells = kb.data['SM_cells']
             saveCells(cells)
-
-def signal_handler(sig, frame):
-    global th, state
-    print('Keyboard interrupt received, stopping srsLTE PSS...')
-    state = False
-    cells = kb.data['SM_cells']
-    saveCells(cells)
-    sys.exit(0)
-
-signal.signal(signal.SIGINT, signal_handler)
 
 def startSrsLTEPSSCollect():
     srs = srslte_pss()
@@ -161,6 +159,7 @@ def printInfo(string):
 
 def saveCells(obj):
     import time
+    repr(obj)
     jscells = json.dumps(obj, indent=4, sort_keys=True)
     name = "cells_%d.json" % float(time.time())
     f = open("%s" % name, 'w+')
@@ -250,9 +249,10 @@ def processGRGSM(bands):
                         "=> Switching to %s band" % band, arg=band)
         except (KeyboardInterrupt, SystemExit):
             state = False
-            kb = mKB()
-            cells = kb.data['SM_cells']
-            saveCells(cells)
+            break
+    kb = mKB()
+    cells = kb.data['SM_cells']
+    saveCells(cells)
 
 
 def processManualMCCMN(string):
