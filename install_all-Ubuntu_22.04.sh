@@ -8,8 +8,27 @@ sudo python3 -m pip install --upgrade pip
 sudo python3 -m pip install -r requirements.txt
 
 echo "[+] Installing GNU Radio dependencies"
-sudo add-apt-repository ppa:gnuradio/gnuradio-releases
-sudo apt-get update
+installedgnuradio_version=$(dpkg -s gnuradio|egrep -i "Version: 3.10(.*)")
+
+install_latest_gnuradio() {
+	sudo add-apt-repository ppa:gnuradio/gnuradio-releases
+        sudo apt-get update
+        gnuradioversion=$(sudo apt policy gnuradio|egrep -i "3.10(.*) 500"|sed 's/     //'|sed 's/ 500//')
+        sudo apt-get install gnuradio=$gnuradioversion # forcing GNU Radio 3.10 installation
+}
+
+if [ -z "$installedgnuradio_version" ]
+then
+	while true; do
+    	read -p "GNU Radio 3.10 doesn't appear to be installed, do you wish to install this program? " yn
+    	case $yn in
+        	[Yy]* ) install_latest_gnuradio; break;;
+        	[Nn]* ) exit;;
+        	* ) echo "Please answer [Y]yes or [N]no.";;
+    	esac
+	done
+fi
+
 gnuradioversion=$(sudo apt policy gnuradio|egrep -i "3.10(.*) 500"|sed 's/     //'|sed 's/ 500//')
 sudo apt-get install gnuradio=$gnuradioversion # forcing GNU Radio 3.10 installation
 
