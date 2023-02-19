@@ -335,7 +335,7 @@ Opening RF device...
 Supported RF device list: UHD soapy bladeRF zmq file
 [INFO] [UHD] linux; GNU C++ version 9.2.1 20200304; Boost_107100; UHD_3.15.0.0-2build5
 Found Rafael Micro R820T tuner
-Soapy has found device #0: driver=SpectranV6, label=SpectranV6 RTSA HTTP Stream, manufacturer=HB9FXQ, product=SpectranV6 RTSA HTTP Stream, serial=SPECTRAN-V6-00000000000, 
+[...]
 Soapy has found device #1: available=Yes, driver=rtlsdr, label=Generic RTL2832U OEM :: 00000001, manufacturer=Realtek, product=RTL2838UHIDIR, rtl=0, serial=00000001, tuner=Rafael Micro R820T, 
 Selecting Soapy device: 1
 [...]
