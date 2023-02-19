@@ -272,12 +272,20 @@ Note that retrieving results from AT+COPS command could take a lot of time and s
 Using Modmobmap with GRGSM
 ------------------------------
 
+Drivers supported:
+
+* bladerf
+* uhd
+* rtlsdr
+* redpitaya
+* soapy
+
 Modmodmap can be used with `gr-gsm` to retrieve GSM cells' information with a Software-Defined Radio device compatible with OSMOSDR.
 
 To use this feature, please issue the following command:
 
 ```
-$ python modmobmap.py -m grgsm -b GSM-R,GSM900
+$ python modmobmap.py -m grgsm -b GSM-R,GSM900 -g rtlsdr
 => Switching to GSM-R band
 [+] New cell detected [CellID/PCI-DL_freq  (****)]
  Network type=2G
