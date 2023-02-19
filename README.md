@@ -43,6 +43,7 @@ Modmobmap is also able to scan LTE cells by wrapping srsLTE tools. The engine su
 * BladeRF
 * HackRF
 * RFSpace
+* ANTSDR E200 (with the right UHD installation)
 * and so on.
 
 Requirements
