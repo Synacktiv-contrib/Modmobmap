@@ -64,8 +64,11 @@ def startSrsLTExPSSProcess(cmdprog):
             for band in bands:
                 commandstring = [mKB.config['SRSLTETOOLS_PATH']+cmdprog, "-b", band]
                 if mKB.config['device_args'] is not None:
+                    splitted_arg = mKB.config['device_args'].split(':')
+                    commandstring.append("-d")
+                    commandstring.append(splitted_arg[0])
                     commandstring.append("-a")
-                    commandstring.append(mKB.config['device_args'])
+                    commandstring.append(splitted_arg[1])
                 p = subprocess.run(commandstring)
         except (KeyboardInterrupt, SystemExit):
             state = False

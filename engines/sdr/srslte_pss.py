@@ -50,7 +50,7 @@ class srslte_pss(object):
                                          'type' : "4G",
                                          'band' : "-1",
                                          'eARFCN' : int(tmpcell['DL_EARFCN']),
-                                         'POWER' : tmpcell['POWER'], 
+                                         'POWER' : tmpcell['POWER'].split("\n")[0], 
                                      }
                     self.go2logs(tmpcell2)
 
