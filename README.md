@@ -310,13 +310,6 @@ Using Modmobmap with srsRAN
 ------------------------------
 
 
-Supported drivers:
-
-* uhd
-* bladerf
-* soapy
-
-
 Modmodmap can be used with `srsRAN` to retrieve LTE cells with a Software-Defined Radio device compatible with UHD, and Soapy drivers like the RTL-SDR.
 
 Before running the engine, make sure all dependencies are installed. You can refer to the installation script to install all appropriate dependencies. Also make sure that all submodules are pulled from the repository:
@@ -372,6 +365,30 @@ Selecting Soapy device: 1
 ```
 
 The `g` parameters is not mandatory and is used mainly to select the right device to scan the Synchronization Signals.
+
+To find the right device with Soapy, you can type the following command:
+
+```
+######################################################
+##     Soapy SDR -- the SDR abstraction library     ##
+######################################################
+
+[INFO] [UHD] linux; GNU C++ version 9.2.1 20200304; Boost_107100; UHD_3.15.0.0-2build5
+Found device 0
+  driver = SpectranV6
+  label = SpectranV6 RTSA HTTP Stream
+  manufacturer = HB9FXQ
+  product = SpectranV6 RTSA HTTP Stream
+  serial = SPECTRAN-V6-00000000000
+
+Found device 1
+  backend = libusb
+  device = 0x01:0x13
+  driver = bladerf
+  instance = 0
+  label = BladeRF #0 [bd7fffbf..d5958b06]
+  serial = bd7fffbf8efb4de4ba08d94bd5958b06
+```
 
 For NB-IoT scanning, you can use the `srslte_npss` option as follows:
 
